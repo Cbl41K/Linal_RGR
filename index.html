@@ -7793,6 +7793,26 @@ a.anchor-link {
     white-space: normal;
   }
 </style>
+
+
+<style>
+.code-toggle {
+    display: block;
+    margin-bottom: 8px;
+    padding: 5px 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    background: #f6f8fa;
+    color: #444;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.code-toggle:hover {
+    background: #eaeef2;
+}
+</style>
+
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
@@ -16172,5 +16192,36 @@ return Plotly;
 </div>
 </div>
 </main>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".jp-CodeCell").forEach(cell => {
+        const editor = cell.querySelector(".jp-InputArea-editor");
+
+        if (!editor) return;
+
+        // Переносим содержимое редактора в отдельный контейнер
+        const code = document.createElement("div");
+
+        while (editor.firstChild) {
+            code.appendChild(editor.firstChild);
+        }
+
+        const button = document.createElement("button");
+        button.className = "code-toggle";
+        button.textContent = "Показать код";
+
+        code.hidden = true;
+
+        button.addEventListener("click", () => {
+            code.hidden = !code.hidden;
+            button.textContent = code.hidden
+                ? "Показать код"
+                : "Скрыть код";
+        });
+
+        editor.append(button, code);
+    });
+});
+</script>s
 </body>
 </html>
